@@ -70,4 +70,9 @@ public class TestView extends JFrame{
         }
 
     }
+
+    public void addErrorText(String errorMsg){
+
+        textArea.append(errorMsg);
+    }
 }

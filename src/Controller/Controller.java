@@ -4,8 +4,6 @@ import Model.Model;
 import View.TestView;
 
 import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
 
@@ -47,12 +45,8 @@ public class Controller {
             @Override
             protected ArrayList<String> doInBackground() {
 
-                ArrayList<String> testResult;
-                model.testExecutor();
-                testResult = model.getResult();
+                return new ArrayList<>(model.testExecutor());
 
-
-                return testResult;
             }
 
             @Override
@@ -60,15 +54,18 @@ public class Controller {
                 try{
                     ArrayList<String> temp = get();
 
-                    if(!temp.isEmpty()){
-
+                    if(model.isError()){
                         SwingUtilities.invokeLater(() -> {
                             view.addText(temp);
                         });
                     }
                     else{
-                        System.out.println("ARRAYLIST IS EMPTY");
+
+                        SwingUtilities.invokeLater(() -> {
+                            view.addText(temp);
+                        });
                     }
+
                 } catch (InterruptedException | ExecutionException e) {
                     e.printStackTrace();
                 }

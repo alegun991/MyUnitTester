@@ -4,38 +4,44 @@ import java.util.ArrayList;
 public class Model {
     private String className;
     private ArrayList<String> result;
+    private boolean isError = false;
 
-
-    private boolean testsExecuted = false;
     public Model(String className) {
 
         this.className = className;
     }
 
 
-    public void testExecutor() {
-
+    public ArrayList<String> testExecutor() {
+        result = new ArrayList<>();
         HelperClass hc = new HelperClass(className);
-        Class<?> testClass = hc.getClassForName();
-        boolean validated = hc.validateClass(testClass);
-        result = hc.getResult();
-        if (validated){
-            Object object = hc.instantiateClass();
-            hc.invokeMethod(object);
-            testsExecuted = true;
+        var testClass = hc.getClassObject();
 
+        if(testClass == null){
+            result = hc.getError();
+            return result;
         }
 
-    }
+        else {
+            hc.validateClass(testClass);
+            Object object = hc.instantiateClass();
 
-    public ArrayList<String> getResult() {
+            if (hc.isError()) {
+                isError = true;
+                result = hc.getError();
+                return result;
 
+            } else {
+                result = hc.invokeMethod(object);
+            }
+        }
         return result;
     }
 
 
-    public boolean isTestsExecuted() {
-        return testsExecuted;
+    public boolean isError() {
+        return isError;
     }
+
 }
 
