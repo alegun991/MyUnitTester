@@ -1,12 +1,9 @@
 package Controller;
-
 import Model.Model;
 import View.TestView;
-
 import javax.swing.*;
 import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
-
 
 public class Controller {
     private TestView view;
@@ -24,7 +21,7 @@ public class Controller {
         SwingUtilities.invokeLater(() -> {
 
             view = new TestView();
-            view.setSize(500, 500);
+            view.setSize(1080, 720);
             view.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             view.setVisible(true);
             initListeners();
@@ -56,7 +53,7 @@ public class Controller {
 
                     if(model.isError()){
                         SwingUtilities.invokeLater(() -> {
-                            view.addText(temp);
+                            view.addErrorText(temp);
                         });
                     }
                     else{

@@ -4,23 +4,25 @@ import java.awt.*;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
+
 public class TestView extends JFrame{
     private JButton button1;
     private JButton button2;
     private JTextArea textArea;
     private JTextField textField;
+    private JPanel mainPanel;
 
     public TestView(){
         super();
 
-        JPanel mainPanel = new JPanel();
+        mainPanel = new JPanel();
         mainPanel.setLayout(new BorderLayout());
         JPanel topPanel = new JPanel();
         topPanel.setLayout(new BorderLayout());
         JPanel centerPanel = new JPanel();
         centerPanel.setLayout(new BorderLayout());
         JPanel bottomPanel = new JPanel();
-        bottomPanel.setLayout(new BorderLayout());
+        bottomPanel.setLayout(new FlowLayout(FlowLayout.CENTER));
 
         add(mainPanel);
 
@@ -71,8 +73,9 @@ public class TestView extends JFrame{
 
     }
 
-    public void addErrorText(String errorMsg){
-
-        textArea.append(errorMsg);
+    public void addErrorText(ArrayList<String> errorMsg){
+        JOptionPane.showMessageDialog(this, errorMsg.get(0),
+                "Alert", JOptionPane.ERROR_MESSAGE);
     }
+
 }
